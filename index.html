@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고대 세종 셔틀버스</title>
+    
+    <!-- PWA 설정 -->
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="고대 세종 셔틀버스 시간표">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="KUSBUS">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- 광고 스크립트는 오프라인에서 작동하지 않으므로 제거 또는 주석 처리 -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6684243039322670" crossorigin="anonymous"></script> -->
+     <link href="css/bootstrap.min.css" rel="stylesheet">
+     <script src="js/bootstrap.bundle.min.js"></script>
+     <script src="js/jquery-3.7.0.js"></script>
+     <link href="css/maru-buri.css" rel="stylesheet">
+     
+</head>
+<body>
+    
+    
+
+    <br><br><br><br>
+    <h2 class="kusbus">KUSBUS (2025-1)</h2>
+    <!-- <h2><span class="kusbus">KUSBUS </span>(2024-1)</h2> -->
+    <br>
+    
+    <h2 id="clock"></h2>
+    <button class='btn-outline-dark btn' id="openImageModal">이미지로 보기</button>
+    
+    <br>
+    <div class="center">
+        <h2>학교 → 조치원역</h2>
+        <p id="toStationCurrentTargetTime"></p>
+        <p id="toStationRemainingTime"></p>
+        <p id="toStationNextTargetTime"></p>
+    </div>
+    <br>
+    <div class="center">
+        <h2>조치원역 → 학교</h2>
+        <p id="toSchoolCurrentTargetTime"></p>
+        <p id="toSchoolRemainingTime"></p>
+        <p id="toSchoolNextTargetTime"></p>
+    </div>
+
+    <a class="btn-outline-danger btn" href="https://sejong.korea.ac.kr/campuslife/facilities/dining/weeklymenu">식단표</a>
+    <br>
+    
+    <!-- 이미지 모달 -->
+    <dialog id="imageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>버스 시간표</h3>
+                <button class="modal-close" id="closeImageModal" aria-label="닫기">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="busschedule/busSchedule.jpg" alt="버스 시간표" class="bus-schedule-image">
+            </div>
+        </div>
+    </dialog>
+    
+    <!-- 출처 표기 -->
+    <footer style="margin-top: 2rem; padding: 1rem; text-align: center; color: #666; font-size: 0.875rem;">
+        <p>원본 출처: <a href="https://kusbus.netlify.app/" target="_blank" rel="noopener noreferrer">https://kusbus.netlify.app/</a></p>
+    </footer>
+    <br>
+
+    <!-- 광고 배너는 오프라인에서 작동하지 않으므로 제거 또는 주석 처리 -->
+    <!-- <div class="ad-banner">
+            <ins class="kakao_ad_area" style="display:none;" 
+                data-ad-unit    = "DAN-uk8ZlVU4YuIdDqEA" 
+                data-ad-width   = "250" 
+                data-ad-height  = "250"></ins> 
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div> -->
+    
+    <script src="app.js"></script>
+    <script>
+        // Service Worker 등록
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('Service Worker 등록 성공:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker 등록 실패:', error);
+                    });
+            });
+        }
+        
+        // 이미지 모달 제어
+        const imageModal = document.getElementById('imageModal');
+        const openImageModalBtn = document.getElementById('openImageModal');
+        const closeImageModalBtn = document.getElementById('closeImageModal');
+        
+        openImageModalBtn.addEventListener('click', () => {
+            imageModal.showModal();
+        });
+        
+        closeImageModalBtn.addEventListener('click', () => {
+            imageModal.close();
+        });
+        
+        // 모달 배경 클릭 시 닫기
+        imageModal.addEventListener('click', (event) => {
+            if (event.target === imageModal) {
+                imageModal.close();
+            }
+        });
+        
+        // ESC 키로 닫기
+        imageModal.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                imageModal.close();
+            }
+        });
+    </script>
+</body>
+</html>
