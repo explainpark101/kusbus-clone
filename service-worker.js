@@ -17,9 +17,7 @@ const urlsToCache = [
   '/fonts/MaruBuri/MaruBuri-Bold.woff2',
   '/fonts/MaruBuri/MaruBuri-Light.woff2',
   '/fonts/MaruBuri/MaruBuri-ExtraLight.woff2',
-  // busschedule 페이지
-  '/busschedule/',
-  '/busschedule/index.html',
+  // busschedule 이미지
   '/busschedule/busSchedule.jpg'
 ];
 
@@ -69,15 +67,8 @@ self.addEventListener('fetch', (event) => {
           })
           .catch((error) => {
             // 네트워크 실패 시:
-            // 1. HTML 요청이면 해당 경로의 index.html 또는 루트 index.html 반환
+            // 1. HTML 요청이면 index.html 반환
             if (event.request.destination === 'document') {
-              const url = new URL(event.request.url);
-              const path = url.pathname;
-              // busschedule 경로인 경우
-              if (path.startsWith('/busschedule')) {
-                return caches.match('/busschedule/index.html') || caches.match('/index.html');
-              }
-              // 그 외의 경우 루트 index.html 반환
               return caches.match('/index.html');
             }
             // 2. 외부 리소스 요청이면 빈 응답 또는 기본 응답

@@ -99,6 +99,101 @@ body {
     border-radius: 4px;
 }
 
+/* PWA 설치 토스트 스타일 */
+.install-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 10000;
+    max-width: 90%;
+    width: 400px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.install-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.install-toast-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'MaruBuri', sans-serif;
+}
+
+.install-toast-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.install-toast-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.install-toast-text strong {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+.install-toast-text span {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.install-toast-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.install-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'MaruBuri', sans-serif;
+}
+
+.install-btn:hover {
+    background: #0056b3;
+}
+
+.dismiss-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.dismiss-btn:hover {
+    color: #333;
+}
+
 /* 모바일 반응형 */
 @media (max-width: 768px) {
     #imageModal {
@@ -112,5 +207,32 @@ body {
     
     .modal-header {
         padding: 0.75rem;
+    }
+    
+    .install-toast {
+        width: calc(100% - 40px);
+        max-width: none;
+        bottom: 10px;
+    }
+    
+    .install-toast-content {
+        padding: 0.875rem;
+    }
+    
+    .install-toast-icon {
+        font-size: 1.5rem;
+    }
+    
+    .install-toast-text strong {
+        font-size: 0.9375rem;
+    }
+    
+    .install-toast-text span {
+        font-size: 0.8125rem;
+    }
+    
+    .install-btn {
+        padding: 0.4375rem 0.875rem;
+        font-size: 0.8125rem;
     }
 }
