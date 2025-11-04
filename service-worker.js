@@ -17,6 +17,9 @@ const urlsToCache = [
   '/fonts/MaruBuri/MaruBuri-Bold.woff2',
   '/fonts/MaruBuri/MaruBuri-Light.woff2',
   '/fonts/MaruBuri/MaruBuri-ExtraLight.woff2',
+  // PWA 아이콘
+  '/icon-192.png',
+  '/icon-512.png',
   // busschedule 이미지
   '/busschedule/busSchedule.jpg'
 ];
