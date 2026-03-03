@@ -21,7 +21,7 @@ const urlsToCache = [
   '/icon-192.png',
   '/icon-512.png',
   // busschedule 이미지
-  '/busschedule/busSchedule.jpg'
+  '/busschedule/busSchedule.png'
 ];
 
 // 설치 이벤트: 캐시에 파일 저장
