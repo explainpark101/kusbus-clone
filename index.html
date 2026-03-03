@@ -48,7 +48,7 @@
         <p id="toSchoolNextTargetTime"></p>
     </div>
 
-    <a class="btn-outline-danger btn" href="https://gpa.korea.ac.kr/koreaSejong/8028/subview.do">식단표</a>
+    <a class="btn-outline-danger btn" href="https://gpa.korea.ac.kr/koreaSejong/8028/subview.do" target="_blank">식단표</a>
     <br>
     
     <!-- 이미지 모달 -->
@@ -78,6 +78,21 @@
             </div>
         </div>
     </div>
+
+    <!-- PWA 업데이트 안내 토스트 -->
+    <div id="updateToast" class="install-toast" style="display: none;">
+        <div class="install-toast-content">
+            <div class="install-toast-icon">UP</div>
+            <div class="install-toast-text">
+                <strong>새 버전이 준비되었습니다</strong>
+                <span>새로고침하면 최신 버스 시간표를 사용할 수 있어요.</span>
+            </div>
+            <div class="install-toast-buttons">
+                <button id="reloadBtn" class="install-btn">새로고침</button>
+                <button id="dismissUpdateBtn" class="dismiss-btn" aria-label="닫기">&times;</button>
+            </div>
+        </div>
+    </div>
     
     <!-- 출처 표기 -->
     <footer style="margin-top: 2rem; padding: 1rem; text-align: center; color: #666; font-size: 0.875rem;">
@@ -86,128 +101,6 @@
     <br>
     
     <script src="app.js"></script>
-    <script>
-        // Service Worker 등록
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then((registration) => {
-                        console.log('Service Worker 등록 성공:', registration.scope);
-                    })
-                    .catch((error) => {
-                        console.log('Service Worker 등록 실패:', error);
-                    });
-            });
-        }
-        
-        // 이미지 모달 제어
-        const imageModal = document.getElementById('imageModal');
-        const openImageModalBtn = document.getElementById('openImageModal');
-        const closeImageModalBtn = document.getElementById('closeImageModal');
-        
-        openImageModalBtn.addEventListener('click', () => {
-            imageModal.showModal();
-        });
-        
-        closeImageModalBtn.addEventListener('click', () => {
-            imageModal.close();
-        });
-        
-        // 모달 배경 클릭 시 닫기
-        imageModal.addEventListener('click', (event) => {
-            if (event.target === imageModal) {
-                imageModal.close();
-            }
-        });
-        
-        // ESC 키로 닫기
-        imageModal.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                imageModal.close();
-            }
-        });
-        
-        // PWA 설치 토스트
-        let deferredPrompt;
-        const installToast = document.getElementById('installToast');
-        const installBtn = document.getElementById('installBtn');
-        const dismissInstallBtn = document.getElementById('dismissInstallBtn');
-        
-        // 이미 설치되어 있는지 확인
-        function isInstalled() {
-            return window.matchMedia('(display-mode: standalone)').matches || 
-                   window.navigator.standalone === true ||
-                   document.referrer.includes('android-app://');
-        }
-        
-        // 로컬 스토리지에서 설치 토스트 거부 여부 확인
-        function wasInstallDismissed() {
-            return localStorage.getItem('pwa-install-dismissed') === 'true';
-        }
-        
-        // 설치 토스트 표시
-        function showInstallToast() {
-            if (!isInstalled() && !wasInstallDismissed() && deferredPrompt) {
-                installToast.style.display = 'block';
-                setTimeout(() => {
-                    installToast.classList.add('show');
-                }, 100);
-            }
-        }
-        
-        // 설치 토스트 숨기기
-        function hideInstallToast() {
-            installToast.classList.remove('show');
-            setTimeout(() => {
-                installToast.style.display = 'none';
-            }, 300);
-        }
-        
-        // beforeinstallprompt 이벤트 감지
-        window.addEventListener('beforeinstallprompt', (e) => {
-            // 기본 프롬프트 방지
-            e.preventDefault();
-            // 이벤트 저장
-            deferredPrompt = e;
-            // 3초 후 토스트 표시
-            setTimeout(showInstallToast, 3000);
-        });
-        
-        // 설치 버튼 클릭
-        installBtn.addEventListener('click', async () => {
-            if (!deferredPrompt) {
-                return;
-            }
-            
-            // 설치 프롬프트 표시
-            deferredPrompt.prompt();
-            
-            // 사용자 선택 대기
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                console.log('사용자가 PWA 설치를 승인했습니다');
-            } else {
-                console.log('사용자가 PWA 설치를 거부했습니다');
-            }
-            
-            // 이벤트 초기화
-            deferredPrompt = null;
-            hideInstallToast();
-        });
-        
-        // 닫기 버튼 클릭
-        dismissInstallBtn.addEventListener('click', () => {
-            localStorage.setItem('pwa-install-dismissed', 'true');
-            hideInstallToast();
-        });
-        
-        // 설치 완료 감지
-        window.addEventListener('appinstalled', () => {
-            console.log('PWA가 설치되었습니다');
-            deferredPrompt = null;
-            hideInstallToast();
-        });
-    </script>
+    <script src="pwa.js"></script>
 </body>
 </html>
