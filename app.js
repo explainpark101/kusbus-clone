@@ -62,7 +62,7 @@ function calculateTime(targetTimes) {
 
         targetTime=targetTimesOfDay[i];
 
-        let [targetHour, targetMinute, targetSecond] = targetTime.split(":").map(Number);
+        let [targetHour, targetMinute, targetSecond = 0] = targetTime.split(":").map(Number);
 
         if (currentHour <= targetHour || (currentHour === targetHour && currentMinute <= targetMinute)) {
             let hoursRemaining = targetHour - currentHour;
@@ -95,15 +95,15 @@ function calculateTime(targetTimes) {
 
                 // 다음버스_1
                 nextTargetTime_1=targetTimesOfDay[i+1];
-                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1] = nextTargetTime_1.split(":").map(Number);
+                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1 = 0] = nextTargetTime_1.split(":").map(Number);
 
                 // 다음버스_2
                 nextTargetTime_2=targetTimesOfDay[i+2];
-                let [nextTargetHour_2, nextTargetMinute_2, nextTargetSecond_2] = nextTargetTime_2.split(":").map(Number);
+                let [nextTargetHour_2, nextTargetMinute_2, nextTargetSecond_2 = 0] = nextTargetTime_2.split(":").map(Number);
 
                 // 다음버스_3
                 nextTargetTime_3=targetTimesOfDay[i+3];
-                let [nextTargetHour_3, nextTargetMinute_3, nextTargetSecond_3] = nextTargetTime_3.split(":").map(Number);
+                let [nextTargetHour_3, nextTargetMinute_3, nextTargetSecond_3 = 0] = nextTargetTime_3.split(":").map(Number);
 
                 
                 nextTargetTimeInfo = `[${formatNumber(nextTargetHour_1)}시 ${formatNumber(nextTargetMinute_1)}분] `;
@@ -115,11 +115,11 @@ function calculateTime(targetTimes) {
 
                 // 다음버스_1
                 nextTargetTime_1=targetTimesOfDay[i+1];
-                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1] = nextTargetTime_1.split(":").map(Number);
+                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1 = 0] = nextTargetTime_1.split(":").map(Number);
 
                 // 다음버스_2
                 nextTargetTime_2=targetTimesOfDay[i+2];
-                let [nextTargetHour_2, nextTargetMinute_2, nextTargetSecond_2] = nextTargetTime_2.split(":").map(Number);
+                let [nextTargetHour_2, nextTargetMinute_2, nextTargetSecond_2 = 0] = nextTargetTime_2.split(":").map(Number);
                 
                 nextTargetTimeInfo = `[${formatNumber(nextTargetHour_1)}시 ${formatNumber(nextTargetMinute_1)}분] `;
                 nextTargetTimeInfo += `[${formatNumber(nextTargetHour_2)}시 ${formatNumber(nextTargetMinute_2)}분]`;
@@ -127,7 +127,7 @@ function calculateTime(targetTimes) {
             else if(i == targetTimesOfDay.length-2){
                 // 다음버스_1
                 nextTargetTime_1=targetTimesOfDay[i+1];
-                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1] = nextTargetTime_1.split(":").map(Number);
+                let [nextTargetHour_1, nextTargetMinute_1, nextTargetSecond_1 = 0] = nextTargetTime_1.split(":").map(Number);
                 
                 nextTargetTimeInfo = `${formatNumber(nextTargetHour)}시 ${formatNumber(nextTargetMinute)}분`;
             }
